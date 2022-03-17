@@ -1,14 +1,9 @@
-#!/bin/python3
 import click
 
 
 @click.command()
-def main():
+def cli():
     """
     A cli program for managing dotfiles
     """
-    print("Hello World!")
-
-
-if __name__ == "__main__":
-    main()
+    click.echo("Hello World!")
