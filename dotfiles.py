@@ -1,14 +1,20 @@
 #!/bin/python3
 import click
+import add_file
 
 
-@click.command()
-def main():
+@click.group()
+def cli():
     """
     A cli program for managing dotfiles
     """
-    print("Hello World!")
+    pass
 
 
-if __name__ == "__main__":
-    main()
+@click.command()
+@click.argument("filename", type=click.Path(exists=True))
+def add(filename):
+    add_file.AddFile(filename).add()
+
+
+cli.add_command(add)
