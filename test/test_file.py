@@ -1,5 +1,4 @@
 import unittest
-from shell_command import ShellCommand
 
 from file import File
 
