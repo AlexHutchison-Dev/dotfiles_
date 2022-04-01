@@ -14,13 +14,18 @@ class TestAddFile(TestCase):
 
     def tearDown(self):
         ShellCommand("rm " + self.test_file_path)
+        ShellCommand(
+            "rm "
+            + os.path.join(os.environ["HOME"], "dotfiles", "dotfiles_test_file.txt")
+        )
 
-    def test_should_respond_with_error_when_path_provided_doesnt_exist(self):
+    def test_responds_with_error_when_path_provided_doesnt_exist(self):
         result = self.runner.invoke(cli, ["add", "~/nonexistant.txt"])
         assert result.exit_code == 2
         assert "Error: Invalid value for 'FILENAME'" in result.output
 
-    def test_should_echo_path_to_screen_if_provided(self):
-        result = self.runner.invoke(cli, ["add", self.test_file_path])
-        assert result.exit_code == 0
-        assert self.test_file_path in result.output
+    def test_copies_file_to_dotfiles_dir(self):
+        self.runner.invoke(cli, ["add", self.test_file_path])
+        assert os.path.exists(
+            os.path.join(os.environ["HOME"], "dotfiles", "dotfiles_test_file.txt")
+        )
