@@ -14,7 +14,7 @@ def cli():
 @click.command()
 @click.argument("filename", type=click.Path(exists=True))
 def add(filename):
-    add_file.AddFile(filename).add()
+    add_file.AddFile(filename)
 
 
 cli.add_command(add)

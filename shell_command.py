@@ -24,5 +24,5 @@ class ShellCommand:
     def get_output(self):
         return self.out
 
-    def get_err(self):
+    def get_error(self):
         return self.err
