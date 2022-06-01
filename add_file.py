@@ -1,6 +1,8 @@
-from file import File
-import click
 import os
+
+import click
+
+from file import File
 
 
 class AddFile:
@@ -10,9 +12,11 @@ class AddFile:
         self.add()
 
     def add(self):
-        print(self.target_file.get_dotfiles_path())
-        if os.path.exists(self.target_file.get_dotfiles_path()):
+        if not self._file_already_added():
+            self.target_file._copy_file()
+
+    def _file_already_added(self):
+        exists = os.path.exists(self.target_file.get_dotfiles_path())
+        if exists:
             click.echo("file already added")
-            # print("file already added")
-            return
-        self.target_file._copy_file()
+        return exists
